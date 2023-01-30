@@ -1,12 +1,12 @@
-import Register from './Register';
+import FormRegister from './components/form/FormRegister';
+import FormLogin from './components/form/FormLogin';
 
 function App() {
-
-  return (
-    <main className="App">
-      <Register />
-    </main>
-  );
+	return (
+		<main className='App'>
+			<FormLogin />
+		</main>
+	);
 }
 
 export default App;
