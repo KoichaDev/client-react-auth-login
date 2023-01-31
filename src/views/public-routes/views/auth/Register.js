@@ -3,11 +3,11 @@ import { useRef, useState, useEffect } from 'react';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import axios from '../../api/axios';
+import axios from '../../../../api/axios';
 
-import { PWD_REGEX, REGISTER_URL, USER_REGEX } from '../../helpers/formValidator';
+import { PWD_REGEX, REGISTER_URL, USER_REGEX } from '../../../../helpers/formValidator';
 
-const Register = () => {
+const AuthRegister = () => {
 	const userRef = useRef();
 	const errRef = useRef();
 
@@ -224,4 +224,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default AuthRegister;

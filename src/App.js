@@ -1,12 +1,9 @@
-import FormRegister from './components/form/FormRegister';
-import FormLogin from './components/form/FormLogin';
+import { RouterProvider } from 'react-router-dom';
+
+import router from './router';
 
 function App() {
-	return (
-		<main className='App'>
-			<FormLogin />
-		</main>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;
