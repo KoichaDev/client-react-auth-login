@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import axios from '@/api/axios';
+import api from '@/api/api';
 
 import { PWD_REGEX, REGISTER_URL, USER_REGEX } from '../helpers/formValidator';
 
@@ -65,7 +65,7 @@ const AuthRegister = () => {
 		}
 
 		try {
-			const response = await axios.post(REGISTER_URL, JSON.stringify({ user, password: pwd }), {
+			const response = await api.post(REGISTER_URL, JSON.stringify({ user, password: pwd }), {
 				headers: {
 					'Content-Type': 'application/json',
 				},

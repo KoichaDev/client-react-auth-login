@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import RootLayout from '../components/RootLayout';
+import RootLayout from '../layouts/RootLayout';
 
 import protectedRouts from '../views/protected-routes/protectedRoutes';
 import publicRoutes from '../views/public-routes/publicRoutes';

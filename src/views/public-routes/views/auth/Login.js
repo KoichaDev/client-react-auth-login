@@ -1,9 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import useAuth from '@/hooks/useAuth';
-import axios from '@/api/axios';
-
-const LOGIN_URL = '/auth/login';
+import useAuth from '@/api/hooks/useAuth';
+import { handleLogin } from '../api/authApi';
 
 const AuthLogin = () => {
 	const { setAuth } = useAuth();
@@ -31,12 +29,10 @@ const AuthLogin = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const loginData = JSON.stringify({ user, password: pwd });
 
 		try {
-			const response = await axios.post(LOGIN_URL, JSON.stringify({ user, password: pwd }), {
-				headers: { 'Content-Type': 'application/json' },
-				widthCredentials: true,
-			});
+			const response = await handleLogin(loginData);
 
 			console.log(JSON.stringify(response?.data));
 
