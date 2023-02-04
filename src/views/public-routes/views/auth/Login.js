@@ -4,7 +4,7 @@ import useAuth from '@/api/hooks/useAuth';
 import { handleLogin } from '../api/authApi';
 
 const AuthLogin = () => {
-	const { setAuth } = useAuth();
+	const { setAuth, persistLogin, setPersistLogin } = useAuth();
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -56,6 +56,10 @@ const AuthLogin = () => {
 		}
 	};
 
+	const togglePersistHandler = () => {
+		setPersistLogin((prevPersist) => !prevPersist);
+	};
+
 	return (
 		<section>
 			<p
@@ -86,6 +90,15 @@ const AuthLogin = () => {
 					required
 				/>
 				<button>Sign In</button>
+				<div className='persistCheck'>
+					<input
+						type='checkbox'
+						id='persist'
+						onChange={togglePersistHandler}
+						checked={persistLogin}
+					/>
+					<label htmlFor='persist'>Remember Me</label>
+				</div>
 			</form>
 			<p>
 				Need an Account?

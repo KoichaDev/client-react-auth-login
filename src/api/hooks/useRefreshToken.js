@@ -10,7 +10,12 @@ const useRefreshToken = () => {
 		setAuth((prevAuthRequest) => {
 			console.log(JSON.stringify(prevAuthRequest));
 			console.log(response.data.accessToken);
-			return { ...prevAuthRequest, accessToken: response.data.accessToken };
+
+			return {
+				...prevAuthRequest,
+				roles: response.data.roles,
+				accessToken: response.data.accessToken,
+			};
 		});
 
 		return response.data.accessToken;
