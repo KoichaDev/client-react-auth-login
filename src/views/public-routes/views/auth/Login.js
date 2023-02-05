@@ -42,9 +42,8 @@ const AuthLogin = () => {
 			console.log(JSON.stringify(response?.data));
 
 			const accessToken = response?.data.accessToken;
-			const roles = response?.data.roles;
 
-			setAuth({ user, roles, accessToken });
+			setAuth({ user, accessToken });
 			resetUser();
 			setPwd('');
 			navigate(from, { replace: true });

@@ -8,6 +8,7 @@ specifiers:
   '@fvilers/disable-react-devtools': ^1.3.0
   axios: ^0.24.0
   craco-alias: ^3.0.1
+  jwt-decode: ^3.1.2
   react: ^17.0.2
   react-dom: ^17.0.2
   react-router-dom: ^6.8.0
@@ -21,6 +22,7 @@ dependencies:
   '@fvilers/disable-react-devtools': 1.3.0
   axios: 0.24.0
   craco-alias: 3.0.1
+  jwt-decode: 3.1.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-router-dom: 6.8.0_sfoxds7t5ydpegc3knd667wn6m
@@ -6567,6 +6569,10 @@ packages:
     dependencies:
       array-includes: 3.1.6
       object.assign: 4.1.4
+    dev: false
+
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
     dev: false
 
   /kind-of/6.0.3:
