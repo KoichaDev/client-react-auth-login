@@ -1,15 +1,12 @@
 import { useNavigate, Link } from 'react-router-dom';
-import useAuth from '@/api/hooks/useAuth';
 import useLogout from '../api/hooks/useLogout';
 
 const Home = () => {
 	const navigate = useNavigate();
 	const logout = useLogout();
-	const { setPersistLogin } = useAuth();
 
 	const signOutHandler = async () => {
 		await logout();
-		setPersistLogin(false);
 		navigate('/link-page');
 	};
 

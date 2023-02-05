@@ -3,11 +3,13 @@ import { Outlet } from 'react-router-dom';
 
 import useRefreshToken from '@/api/hooks/useRefreshToken';
 import useAuth from '@/api/hooks/useAuth';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const AuthPersistentDeviceLayout = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const refreshToken = useRefreshToken();
-	const { auth, persistLogin } = useAuth();
+	const { auth } = useAuth();
+	const [persistLogin] = useLocalStorage('persist', false);
 
 	useEffect(() => {
 		let isMounted = true;

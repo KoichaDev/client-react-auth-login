@@ -1,12 +1,14 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import useAuth from '@/api/hooks/useAuth';
-// import useLocalStorage from '@/hooks/useLocalStorage';
+
 import { handleLogin } from '../api/authApi';
+
+import useAuth from '@/api/hooks/useAuth';
 import useInput from '../../hooks/useInput';
+import useToggle from '../../hooks/useToggle';
 
 const AuthLogin = () => {
-	const { setAuth, persistLogin, setPersistLogin } = useAuth();
+	const { setAuth } = useAuth();
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -18,6 +20,7 @@ const AuthLogin = () => {
 	const errRef = useRef();
 
 	const [user, resetUser, userAttribute] = useInput('enteredUserInput', '');
+	const [toggleCheck, setToggleCheck] = useToggle('persist', false);
 	const [pwd, setPwd] = useState('');
 	const [errMsg, setErrMsg] = useState('');
 
@@ -42,7 +45,6 @@ const AuthLogin = () => {
 			const roles = response?.data.roles;
 
 			setAuth({ user, password: pwd, roles, accessToken });
-			// setUser('');
 			resetUser();
 			setPwd('');
 			navigate(from, { replace: true });
@@ -57,10 +59,6 @@ const AuthLogin = () => {
 
 			errRef.current.focus();
 		}
-	};
-
-	const togglePersistHandler = () => {
-		setPersistLogin((prevPersist) => !prevPersist);
 	};
 
 	return (
@@ -96,8 +94,8 @@ const AuthLogin = () => {
 					<input
 						type='checkbox'
 						id='persist'
-						onChange={togglePersistHandler}
-						checked={persistLogin}
+						onChange={setToggleCheck}
+						checked={toggleCheck}
 					/>
 					<label htmlFor='persist'>Remember Me</label>
 				</div>
@@ -106,7 +104,6 @@ const AuthLogin = () => {
 				Need an Account?
 				<br />
 				<span className='line'>
-					{/*put router link here*/}
 					<Link to='/register'>Sign Up</Link>
 				</span>
 			</p>
