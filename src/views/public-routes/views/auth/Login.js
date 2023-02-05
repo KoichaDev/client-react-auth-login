@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import useAuth from '@/api/hooks/useAuth';
-import useLocalStorage from '@/hooks/useLocalStorage';
+// import useLocalStorage from '@/hooks/useLocalStorage';
 import { handleLogin } from '../api/authApi';
+import useInput from '../../hooks/useInput';
 
 const AuthLogin = () => {
 	const { setAuth, persistLogin, setPersistLogin } = useAuth();
@@ -16,7 +17,7 @@ const AuthLogin = () => {
 	const userRef = useRef();
 	const errRef = useRef();
 
-	const [user, setUser] = useLocalStorage('user', ''); //useState('');
+	const [user, resetUser, userAttribute] = useInput('enteredUserInput', '');
 	const [pwd, setPwd] = useState('');
 	const [errMsg, setErrMsg] = useState('');
 
@@ -41,7 +42,8 @@ const AuthLogin = () => {
 			const roles = response?.data.roles;
 
 			setAuth({ user, password: pwd, roles, accessToken });
-			setUser('');
+			// setUser('');
+			resetUser();
 			setPwd('');
 			navigate(from, { replace: true });
 		} catch (error) {
@@ -77,8 +79,7 @@ const AuthLogin = () => {
 					id='username'
 					ref={userRef}
 					autoComplete='off'
-					onChange={(e) => setUser(e.target.value)}
-					value={user}
+					{...userAttribute}
 					required
 				/>
 
