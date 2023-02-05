@@ -1,11 +1,21 @@
 import { useRef, useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
+// API
 import { handleLogin } from '../api/authApi';
 
+// Hooks
 import useAuth from '@/api/hooks/useAuth';
-import useInput from '../../hooks/useInput';
-import useToggle from '../../hooks/useToggle';
+import useInput from './hooks/useInput';
+import useToggle from './hooks/useToggle';
+
+// UI Components
+import FormErrorMessage from './components/forms/FormErrorMessage';
+import FormInputPassword from './components/forms/FormInputPassword';
+import FormInputUsername from './components/forms/FormInputUsername';
+import FormToggleCheckbox from './components/forms/FormToggleCheckbox';
+
+import LinkSignUp from './components/links/LinkSignUp';
 
 const AuthLogin = () => {
 	const { setAuth } = useAuth();
@@ -53,7 +63,7 @@ const AuthLogin = () => {
 			} else if (error.response?.status === 400) {
 				setErrMsg('Missing username or password');
 			} else if (error.response?.status === 401) {
-				setErrMsg('Unauthorized');
+				setErrMsg('forbidden');
 			} else setErrMsg('Login Failed!');
 
 			errRef.current.focus();
@@ -62,50 +72,32 @@ const AuthLogin = () => {
 
 	return (
 		<section>
-			<p
+			<FormErrorMessage
 				ref={errRef}
-				className={errMsg ? 'errmsg' : 'offscreen'}
-				aria-live='assertive'>
-				{errMsg}
-			</p>
+				errMsg={errMsg}
+			/>
+
 			<h1>Sign In</h1>
+
 			<form onSubmit={handleSubmit}>
-				<label htmlFor='username'>Username:</label>
-				<input
-					type='text'
-					id='username'
+				<FormInputUsername
 					ref={userRef}
-					autoComplete='off'
 					{...userAttribute}
-					required
 				/>
 
-				<label htmlFor='password'>Password:</label>
-				<input
-					type='password'
-					id='password'
-					onChange={(e) => setPwd(e.target.value)}
+				<FormInputPassword
 					value={pwd}
-					required
+					onChange={(e) => setPwd(e.target.value)}
 				/>
+
 				<button>Sign In</button>
-				<div className='persistCheck'>
-					<input
-						type='checkbox'
-						id='persist'
-						onChange={setToggleCheck}
-						checked={toggleCheck}
-					/>
-					<label htmlFor='persist'>Remember Me</label>
-				</div>
+
+				<FormToggleCheckbox
+					onChange={setToggleCheck}
+					checked={toggleCheck}
+				/>
 			</form>
-			<p>
-				Need an Account?
-				<br />
-				<span className='line'>
-					<Link to='/register'>Sign Up</Link>
-				</span>
-			</p>
+			<LinkSignUp to='/register' />
 		</section>
 	);
 };
