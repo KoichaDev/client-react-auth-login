@@ -26,12 +26,15 @@ export const useFetchUsers = () => {
 					signal: controller.signal,
 				});
 
-				setResponse(response);
+				const userNames = response?.data.map((user) => {
+					return { id: user._id, username: user.username };
+				});
 
+				setResponse(response);
 				setStatus(response.status);
 
 				if (isMounted) {
-					setUsers(response.data);
+					setUsers(userNames);
 				}
 			} catch (error) {
 				console.error('❌ ', error);

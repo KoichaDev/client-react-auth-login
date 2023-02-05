@@ -3,14 +3,15 @@ import { useFetchUsers } from '../api/hooks/useFetchUsers';
 const Users = () => {
 	const { users } = useFetchUsers();
 
+	console.log(users);
+
 	return (
 		<article>
 			<h2>Users List</h2>
 			{users?.length ? (
 				<ul>
-					{users.map((users) => {
-						const { _id: id, username } = users;
-						return <li key={id}>{username}</li>;
+					{users.map((user) => {
+						return <li key={user.id}>{user.username}</li>;
 					})}
 				</ul>
 			) : (
