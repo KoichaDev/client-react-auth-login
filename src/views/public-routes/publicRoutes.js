@@ -17,7 +17,7 @@ const publicRoutes = [
 		element: <Navigate />,
 	},
 	{
-		path: 'unauthorized',
+		path: 'forbidden',
 		element: <Forbidden />,
 	},
 ];

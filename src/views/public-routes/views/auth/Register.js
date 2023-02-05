@@ -1,30 +1,25 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { PWD_REGEX, REGISTER_URL, USER_REGEX } from './helpers/formValidator';
+
 import api from '@/api/api';
 
-import { PWD_REGEX, REGISTER_URL, USER_REGEX } from '../helpers/formValidator';
+import { useUser, usePassword, useSuccess, useMatchPassword } from './hooks/useFormRegister';
+
+import FormErrorMessage from './components/forms/FormErrorMessage';
+import LinkSignIn from './components/links/LinkSignIn';
 
 const AuthRegister = () => {
 	const userRef = useRef();
 	const errRef = useRef();
 
-	const [user, setUser] = useState('');
-	const [validName, setValidName] = useState(false);
-	const [userFocus, setUserFocus] = useState(false);
-
-	const [pwd, setPwd] = useState('');
-	const [validPwd, setValidPwd] = useState(false);
-	const [pwdFocus, setPwdFocus] = useState(false);
-
-	const [matchPwd, setMatchPwd] = useState('');
-	const [validMatch, setValidMatch] = useState(false);
-	const [matchFocus, setMatchFocus] = useState(false);
-
-	const [errMsg, setErrMsg] = useState('');
-	const [success, setSuccess] = useState(false);
+	const { user, setUser, validName, setValidName, userFocus, setUserFocus } = useUser();
+	const { pwd, setPwd, validPwd, setValidPwd, pwdFocus, setPwdFocus } = usePassword();
+	const { matchPwd, setMatchPwd, validMatch, setValidMatch, matchFocus, setMatchFocus } = useMatchPassword();
+	const { errMsg, setErrMsg, success, setSuccess } = useSuccess();
 
 	useEffect(() => {
 		userRef.current.focus();
@@ -32,21 +27,14 @@ const AuthRegister = () => {
 
 	useEffect(() => {
 		const result = USER_REGEX.test(user);
-
-		console.log(result);
-		console.log(user);
 		setValidName(result);
 	}, [user]);
 
 	useEffect(() => {
 		const result = PWD_REGEX.test(pwd);
-
-		console.log(result);
-		console.log(pwd);
-		setValidPwd(result);
-
 		const isMatchedPassword = pwd === matchPwd;
 
+		setValidPwd(result);
 		setValidMatch(isMatchedPassword);
 	}, [pwd, matchPwd]);
 
@@ -65,16 +53,15 @@ const AuthRegister = () => {
 		}
 
 		try {
-			const response = await api.post(REGISTER_URL, JSON.stringify({ user, password: pwd }), {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				withCredentials: true,
-			});
+			const signUpPayload = JSON.stringify({ user, password: pwd });
+
+			const response = await api.post(REGISTER_URL, signUpPayload);
+
 			console.log(response?.data);
 			console.log(response?.accessToken);
 			console.log(JSON.stringify(response));
 			setSuccess(true);
+
 			//clear state and controlled inputs
 			//need value attrib on inputs for this
 			setUser('');
@@ -94,20 +81,14 @@ const AuthRegister = () => {
 	return (
 		<>
 			{success ? (
-				<section>
-					<h1>Success!</h1>
-					<p>
-						<a href='#'>Sign In</a>
-					</p>
-				</section>
+				<LinkSignIn to='/login' />
 			) : (
 				<section>
-					<p
+					<FormErrorMessage
 						ref={errRef}
-						className={errMsg ? 'errmsg' : 'offscreen'}
-						aria-live='assertive'>
-						{errMsg}
-					</p>
+						errMsg={errMsg}
+					/>
+
 					<h1>Register</h1>
 					<form onSubmit={onSubmitHandler}>
 						<label htmlFor='username'>

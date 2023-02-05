@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import useRefreshToken from '@/api/hooks/useRefreshToken';
+import { useRefreshToken } from '@/api/hooks/useRefreshToken';
 import useAuth from '@/api/hooks/useAuth';
 import useLocalStorage from '../hooks/useLocalStorage';
 

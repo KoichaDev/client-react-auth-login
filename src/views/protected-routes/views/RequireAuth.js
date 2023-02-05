@@ -20,7 +20,7 @@ const RequireAuth = ({ allowedRoles }) => {
 				<Outlet />
 			) : auth?.user ? (
 				<Navigate
-					to='/unauthorized'
+					to='/forbidden'
 					state={{
 						from: location,
 					}}

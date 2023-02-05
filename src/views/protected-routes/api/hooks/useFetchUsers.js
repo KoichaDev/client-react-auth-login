@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useAxiosInterceptorsRefreshToken from '@/api/hooks/useAxiosInterceptorsRefreshToken';
+import { useInterceptorRefreshToken } from '@/api/hooks/useRefreshToken';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const URLS = {
@@ -11,7 +11,7 @@ export const useFetchUsers = () => {
 	const [status, setStatus] = useState(0);
 	const [users, setUsers] = useState([]);
 	const [response, setResponse] = useState({});
-	const interceptRefreshToken = useAxiosInterceptorsRefreshToken();
+	const interceptRefreshToken = useInterceptorRefreshToken();
 
 	const navigate = useNavigate();
 	const location = useLocation();
