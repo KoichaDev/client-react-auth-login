@@ -9,8 +9,7 @@ export const useRefreshToken = () => {
 		const response = await api.get('/auth/refresh');
 
 		setAuth((prevAuthRequest) => {
-			console.log(JSON.stringify(prevAuthRequest));
-			console.log(response.data.accessToken);
+			console.log('Previous Auth Request token: ', JSON.stringify(prevAuthRequest));
 
 			return {
 				...prevAuthRequest,
@@ -65,7 +64,7 @@ export const useInterceptorRefreshToken = () => {
 				if (error?.response?.status === 403 && !prevRequest?.sent) {
 					prevRequest.sent = true;
 					const newAccessToken = await getRefreshToken();
-					console.log(newAccessToken);
+					console.log("new intercepted refresh token: ", newAccessToken);
 					prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
 					// We are updating the request with our refresh token, so we should have a new access token
 					return api(prevRequest);
