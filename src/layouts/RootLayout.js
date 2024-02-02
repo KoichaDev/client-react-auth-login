@@ -7,7 +7,6 @@ const RootLayout = () => {
 			 * Represents all the children of the layout components. Anything nested inside the layout
 			 * Components is represented by the outlet. You can have Header, Footer, Aside component etc.
 			 */}
-
 			<Outlet />
 		</main>
 	);

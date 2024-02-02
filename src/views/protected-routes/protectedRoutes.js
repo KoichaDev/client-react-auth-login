@@ -16,7 +16,7 @@ const protectedRoutes = [
 		element: <AuthPersistentDeviceLayout />,
 		children: [
 			{
-				element: <RequireAuth allowedRoles={[ROLES.User]} />,
+				element: <RequireAuth allowedRoles={[ROLES.User, ROLES.Editor, ROLES.Admin]} />,
 				children: [
 					{
 						path: '/',
@@ -25,7 +25,7 @@ const protectedRoutes = [
 				],
 			},
 			{
-				element: <RequireAuth allowedRoles={[ROLES.Editor]} />,
+				element: <RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />,
 				children: [
 					{
 						path: 'editor',

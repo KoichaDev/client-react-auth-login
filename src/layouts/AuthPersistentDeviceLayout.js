@@ -36,8 +36,8 @@ const AuthPersistentDeviceLayout = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log(`isLoading: ${isLoading}`);
-		console.log(`Auth Token: ${JSON.stringify(auth?.accessToken)}`);
+		// console.log(`isLoading: ${isLoading}`);
+		// console.log(`Auth Token: ${JSON.stringify(auth?.accessToken)}`);
 	}, [isLoading]);
 
 	return <>{!persistLogin ? <Outlet /> : isLoading ? <p>Is loading...</p> : <Outlet />}</>;

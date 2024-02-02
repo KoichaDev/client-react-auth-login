@@ -3,7 +3,7 @@ import { useInterceptorRefreshToken } from '@/api/hooks/useRefreshToken';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const URLS = {
-	fetchAllUsers: '/users/get-users',
+	fetchAllUsers: '/employees',
 };
 
 export const useFetchUsers = () => {
@@ -26,8 +26,9 @@ export const useFetchUsers = () => {
 					signal: controller.signal,
 				});
 
+				console.log(response);
 				const userNames = response?.data.map((user) => {
-					return { id: user._id, username: user.username };
+					return { ...user };
 				});
 
 				setResponse(response);
